@@ -81,7 +81,8 @@
   <body class="login-page">
     <div class="login-box" id="login-box">
 	  <div class="margin text-center">
-		<img src="img/logo.png" width="auto" height="64">
+		<!-- <img src="img/logo.png" width="auto" height="64"> -->
+		<img src="" width="auto" height="64">
 	  </div>
       <div class="login-logo"><?php $lh->translateText("reset_password"); ?></div>
       <div class="login-box-body">

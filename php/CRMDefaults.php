@@ -42,8 +42,10 @@ define ('CRM_RECOVERY_EMAIL_FILE', 'creamyEmail.html');
 define ('CRM_PHP_CONFIG_FILE', 'php'.DIRECTORY_SEPARATOR.'Config.php');
 define ('CRM_PHP_BEGIN_TAG', '<?php');
 define ('CRM_PHP_END_TAG', '?>');
-define ('CRM_DEFAULT_HEADER_LOGO', 'img/logo.png');
-define ('CRM_DEFAULT_COMPANY_LOGO', 'img/customCompanyLogo.png');
+define ('CRM_DEFAULT_HEADER_LOGO', '');
+define ('CRM_DEFAULT_COMPANY_LOGO', '');
+// define ('CRM_DEFAULT_HEADER_LOGO', 'img/logo.png');
+// define ('CRM_DEFAULT_COMPANY_LOGO', 'img/customCompanyLogo.png');
 
 // messages constants
 define ('MESSAGES_GET_INBOX_MESSAGES', 0);

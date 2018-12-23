@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Goautodial Contacts & Call Recordings</title>
+        <title>tringPhone Contacts & Call Recordings</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         
         <!-- Call for standardized css -->
