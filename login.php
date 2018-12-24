@@ -131,7 +131,7 @@
 	  <div class="margin text-center">
 		<img src="<?php echo $ui->creamyHeaderLogo();?>" width="auto" height="64">
 	  </div>
-      <div class="login-logo">
+      <div hidden class="login-logo">
         <?php $lh->translateText("welcome_to"); ?><?php print($ui->creamyHeaderName()); ?>!
       </div><!-- /.login-logo -->
       <div class="login-box-body">
