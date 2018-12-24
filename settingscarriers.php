@@ -426,7 +426,7 @@ host=</textarea>
 						<!-- /.copy_manual -->
 
 						<!-- IF JUST GO VOIP -->
-							<div class="justgo_div" style="display:none;">
+							<div hidden class="justgo_div" style="display:none;">
 								<style type="text/css">
 									.welcome-header{width:100%;text-align:center;}
 									.sales-email{float:right;text-align:left;font-size:12px;margin-right: 30px}
@@ -434,9 +434,9 @@ host=</textarea>
 								<fieldset>
 									<div class="form-group mb">
 										<div class="welcome-header">
-										  <span><?php $lh->translateText('justgo_welcome'); ?></span><br class="clear"><br class="clear">
+										  <!-- <span><?php // $lh->translateText('justgo_welcome'); ?></span><br class="clear"><br class="clear"> -->
 										  <!-- <span><a href="https://webrtc.goautodial.com/justgocloud/" target="_new"><img src="https://webrtc.goautodial.com/img/goautodial_logo.png"></a></span><br class="clear"><br class="clear"> -->
-										  <span><?php $lh->translateText('justgo_title'); ?></span><br>
+										  <!-- <span><?php //$lh->translateText('justgo_title'); ?></span><br> -->
 										  <br>
 										  <span align="center" style="padding-left: 100px;">
 	
