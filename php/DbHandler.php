@@ -293,18 +293,19 @@ class DbHandler {
 			$cost = $userobj->cost;
 			$phone_login = $userobj->phone_login;
 			$realm = $userobj->realm;
-			$ha1_pass = md5("{$phone_login}:{$realm}:{$password}");
+			//$ha1_pass = md5("{$phone_login}:{$realm}:{$password}");
+            $ha1_pass = $userobj->ha1;
 			//if ($status == 1) { // user is active
 
 			if ($bcrypt > 0) {
 				//$pass_hash = exec("{$cwd}/bin/bp.pl --pass=$password --salt=$salt --cost=$cost");
 				//$pass_hash = preg_replace("/PHASH: |\n|\r|\t| /",'',$pass_hash);
-                              	$pass_options = [
-                                      	'cost' => $cost,
-                                      	'salt' => base64_encode($salt)
-                               	];
-                              	$pass_hash = password_hash($password, PASSWORD_BCRYPT, $pass_options);
-                              	$pass_hash = substr($pass_hash, 29, 31);				
+                $pass_options = [
+                    'cost' => $cost,
+                    'salt' => base64_encode($salt)
+                ];
+                $pass_hash = password_hash($password, PASSWORD_BCRYPT, $pass_options);
+                $pass_hash = substr($pass_hash, 29, 31);				
 			} else {$pass_hash = $password;}
 
 			if ( preg_match("/Y/i", $status) ) {
@@ -408,12 +409,12 @@ class DbHandler {
 			if ($bcrypt > 0) {
 				//$pass_hash = exec("{$cwd}/bin/bp.pl --pass=$password --salt=$salt --cost=$cost");
 				//$pass_hash = preg_replace("/PHASH: |\n|\r|\t| /",'',$pass_hash);
-                              	$pass_options = [
-                                      	'cost' => $cost,
-                                      	'salt' => base64_encode($salt)
-                               	];
-                              	$pass_hash = password_hash($password, PASSWORD_BCRYPT, $pass_options);
-                              	$pass_hash = substr($pass_hash, 29, 31);				
+                $pass_options = [
+                    'cost' => $cost,
+                    'salt' => base64_encode($salt)
+                ];
+                $pass_hash = password_hash($password, PASSWORD_BCRYPT, $pass_options);
+                $pass_hash = substr($pass_hash, 29, 31);				
 			} else {$pass_hash = $password;}
 			
 			if ($user_role == 9) {
