@@ -95,7 +95,7 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?=CRM_GOAGENT_TITLE?> - <?=$lh->translateText('GOautodial')." ".CRM_GO_VERSION?></title>
+        <title><?=CRM_GOAGENT_TITLE?> - <?=$lh->translateText('tringPhone')." ".CRM_GO_VERSION?></title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 		<!-- SnackbarJS -->
         <link href="css/snackbar/snackbar.min.css" rel="stylesheet" type="text/css" />

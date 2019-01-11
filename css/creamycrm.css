@@ -2844,9 +2844,9 @@ tr.unread > td {
 }
 .login-page,
 .register-page {
-background: #abc4d6;
+/* background: #abc4d6; */
  /*background: #070315;*/
- /*background: #161916*/
+ background: #161916
 
 }
 .login-box,

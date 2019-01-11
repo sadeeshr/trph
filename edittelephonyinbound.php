@@ -2055,7 +2055,7 @@ if (!isset($_POST["groupid"]) && !isset($_POST["ivr"]) && !isset($_POST["did"]))
 															for($i=0;$i < 1;$i++) {
 														?>
 															<option value="<?php echo $phone_extension->server_ip[$i];?>" <?php if ($phone_extension->server_ip[$i] == $output->data->server_ip)echo "selected";?>>
-																<?php echo 'GOautodial - '.$phone_extension->server_ip[$i];?>
+																<?php echo 'tringPhone - '.$phone_extension->server_ip[$i];?>
 															</option>									
 														<?php
 															}

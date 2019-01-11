@@ -80,7 +80,7 @@ $custDefaultAvatar = "https://www.gravatar.com/avatar/{$avatarHash}?rating=PG&si
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>GoAutodial Web Client</title>
+        <title>tringPhone Web Client</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<!-- SnackbarJS -->

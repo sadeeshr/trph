@@ -131,7 +131,7 @@
 	  <div class="margin text-center">
 		<img src="<?php echo $ui->creamyHeaderLogo();?>" width="auto" height="64">
 	  </div>
-      <div class="login-logo">
+      <div hidden class="login-logo">
         <?php $lh->translateText("welcome_to"); ?><?php print($ui->creamyHeaderName()); ?>!
       </div><!-- /.login-logo -->
       <div class="login-box-body">
@@ -153,7 +153,7 @@
           <div class="row">
             <div class="col-xs-3"></div>
             <div class="col-xs-6">
-              <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat"><?php $lh->translateText("access"); ?></button>
+              <button style="background-color: #e74c3c;border: 0;" type="submit" name="submit" class="btn btn-primary btn-block btn-flat"><?php $lh->translateText("access"); ?></button>
             </div><!-- /.col -->
             <div class="col-xs-3"></div>
           </div>
