@@ -1,5 +1,7 @@
 php/Config.php
 php/goCRMAPISettings.php
-.gitignore
+#.gitignore
 astguiclient.conf
 goautodial.conf
+goAPIv2
+phpmailer
