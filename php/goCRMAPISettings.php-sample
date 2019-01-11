@@ -1,6 +1,0 @@
-<?php
-define ('gourl', 'https://HOSTNAME/goAPIv2'); //replace HOSTNAME with your FQDN
-define ('goUser', 'goAPI');
-define ('goPass', 'goAPIpass1234');
-define ('responsetype', 'json');
-?>
