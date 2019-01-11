@@ -43,15 +43,15 @@ class GOagent extends Module {
 	protected $astDB;
 
 	// module meta-data (ModuleData interface implementation).
-	static function getModuleName() { return "GOautodial Agent Dialer"; }
+	static function getModuleName() { return "tringPhone Agent Dialer"; }
 	
 	static function getModuleVersion() { return "1.0"; }
 	
-	static function getModuleDescription() { return "A module for GOautodial Agent Dialer integration."; }
+	static function getModuleDescription() { return "A module for tringPhone Agent Dialer integration."; }
 
 	// lifecycle and respond to interactions.
 	public function uponInit() {
-		error_log("Module \"GOautodial Agent Dialer\" initializing...");
+		error_log("Module \"tringPhone Agent Dialer\" initializing...");
 		
 		// add the translation files to our language handler.
 		$customLanguageFile = $this->getModuleLanguageFileForLocale($this->lh()->getLanguageHandlerLocale());
@@ -80,15 +80,15 @@ class GOagent extends Module {
 	}
 		
 	public function uponActivation() {
-		error_log("Module \"GOautodial Agent Dialer\" activating...");
+		error_log("Module \"tringPhone Agent Dialer\" activating...");
 	}
 		
 	public function uponDeactivation() {
-		error_log("Module \"GOautodial Agent Dialer\" deactivating...");
+		error_log("Module \"tringPhone Agent Dialer\" deactivating...");
 	}
 
 	public function uponUninstall() {
-		error_log("Module \"GOautodial Agent Dialer\" uninstalling...");
+		error_log("Module \"tringPhone Agent Dialer\" uninstalling...");
 	}
 	
 	// Private functions for this module.
