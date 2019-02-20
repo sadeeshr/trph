@@ -117,6 +117,7 @@ var callback_alerts = {};
 var reschedule_cb = false;
 var reschedule_cb_id = 0;
 var just_logged_in = false;
+var editProfileEnabled = false;
 <?php
     foreach ($default_settings as $idx => $val) {
         if (is_numeric($val) && !preg_match("/^(conf_exten|session_id)$/", $idx)) {
@@ -429,6 +430,7 @@ $(document).ready(function() {
                 //}
                 
                 if (live_customer_call < 1) {
+                    editProfileEnabled = false;
                     $("#for_dtmf").addClass('hidden');
                     $('#edit-profile').addClass('hidden');
                     $("#reload-script").addClass('hidden');
@@ -598,7 +600,8 @@ $(document).ready(function() {
                         $(".formMain input[name='seconds']").val(live_call_seconds);
                         $("#SecondsDISP").html(live_call_seconds);
                         $("#for_dtmf").removeClass('hidden');
-                        $('#edit-profile').removeClass('hidden');
+                        if (!editProfileEnabled)
+                            $('#edit-profile').removeClass('hidden');
                         $("#reload-script").removeClass('hidden');
                         $("#dialer-pad-ast, #dialer-pad-hash").removeClass('hidden');
                         $("#dialer-pad-clear, #dialer-pad-undo").addClass('hidden');
@@ -607,7 +610,8 @@ $(document).ready(function() {
                     if (XD_live_customer_call == 1) {
                         XD_live_call_seconds++;
                         $("#xferlength").val(XD_live_call_seconds);
-                        $('#edit-profile').removeClass('hidden');
+                        if (!editProfileEnabled)
+                            $('#edit-profile').removeClass('hidden');
                         $("#reload-script").removeClass('hidden');
                         $("#btnLogMeOut").addClass("disabled");
                     }
@@ -2307,9 +2311,6 @@ function toggleButton (taskname, taskaction, taskenable, taskhide, toupperfirst,
             }
             
             $("#btn"+taskname+" i").attr('class', actClass);
-            if (actTitle !== '') {
-                $("#btn"+taskname).attr('title', actTitle);
-            }
         } else {
             if (!isEnabled) {
                 $("#btn"+taskname).addClass('disabled');
@@ -2320,6 +2321,10 @@ function toggleButton (taskname, taskaction, taskenable, taskhide, toupperfirst,
             if (onClick.length > 0) {
                 $("#btn"+taskname).attr('onclick', onClick);
             }
+        }
+        
+        if (actTitle !== '') {
+            $("#btn"+taskname).attr('title', actTitle);
         }
         
         if (isHidden) {
@@ -2657,14 +2662,22 @@ function CheckForConfCalls (confnum, force) {
                 }
                 Clear_API_Field('external_transferconf');
             }
-            if (api_parkcustomer == 'PARK_CUSTOMER')
-                {mainxfer_send_redirect('ParK', lastcustchannel, lastcustserverip);}
-            if (api_parkcustomer == 'GRAB_CUSTOMER')
-                {mainxfer_send_redirect('FROMParK', lastcustchannel, lastcustserverip);}
-            if (api_parkcustomer == 'PARK_IVR_CUSTOMER')
-                {mainxfer_send_redirect('ParKivr', lastcustchannel, lastcustserverip);}
-            if (api_parkcustomer == 'GRAB_IVR_CUSTOMER')
-                {mainxfer_send_redirect('FROMParKivr', lastcustchannel, lastcustserverip);}
+            if (api_parkcustomer == 'PARK_CUSTOMER') {
+                toggleButton('ParkCall', 'park');
+                mainxfer_send_redirect('ParK', lastcustchannel, lastcustserverip);
+            }
+            if (api_parkcustomer == 'GRAB_CUSTOMER') {
+                toggleButton('ParkCall', 'grab');
+                mainxfer_send_redirect('FROMParK', lastcustchannel, lastcustserverip);
+            }
+            if (api_parkcustomer == 'PARK_IVR_CUSTOMER') {
+                toggleButton('IVRParkCall', 'parkivr');
+                mainxfer_send_redirect('ParKivr', lastcustchannel, lastcustserverip);
+            }
+            if (api_parkcustomer == 'GRAB_IVR_CUSTOMER') {
+                toggleButton('IVRParkCall', 'grabivr');
+                mainxfer_send_redirect('FROMParKivr', lastcustchannel, lastcustserverip);
+            }
             if (api_dtmf.length > 0) {
                 var REGdtmfPOUND = new RegExp("P","g");
                 var REGdtmfSTAR = new RegExp("S","g");
@@ -3760,7 +3773,7 @@ function DTMF_Preset_b_Dial(taskquiet) {
         {session_id_dial = '7' + session_id};
     BasicOriginateCall(Call_XC_b_Number,'NO','YES',session_id_dial,'YES','','1','0');
 }
-function DtMf_PreSet_c_DiaL(taskquiet) {
+function DtMf_Preset_c_Dial(taskquiet) {
     $(".formXFER input[name='xfernumber']").val(Call_XC_c_Number);
     var session_id_dial = session_id;
     if (taskquiet == 'YES')
@@ -4972,6 +4985,7 @@ function Leave3WayCall(tempvarattempt) {
     leaving_threeway = 1;
 
     if (customerparked > 0) {
+        toggleButton('ParkCall', 'grab');
         mainxfer_send_redirect('FROMParK',lastcustchannel,lastcustserverip);
     }
 
@@ -5946,6 +5960,7 @@ function CustomerData_update() {
         $(".formMain #custom_fields [id^='custom_']").val('');
         $(".formMain #custom_fields [id^='custom_']").prop('checked', false);
         $('.input-disabled').prop('disabled', true);
+        $('#cust_full_name .editable').editable('disable');
         $('.hide_div').hide();
         $("input:required, select:required").removeClass("required_div");
     });
@@ -8663,7 +8678,8 @@ function getContactList() {
         goAction: 'goGetContactList',
         goUser: uName,
         goPass: uPass,
-        goLimit: 50,
+        //goLimit: 50, sabi ni sir chi itaas daw limit
+	goLimit: 1000,
         goCampaign: campaign,
         goLeadSearchMethod: agent_lead_search_method,
         goIsLoggedIn: is_logged_in,
@@ -9618,6 +9634,7 @@ function minimizeModal(modal_id) {
     $(document).off('focusin.modal');
     
     $('.input-disabled').prop('disabled', false);
+    $('#cust_full_name .editable').editable('enable');
     $("input:required, select:required").addClass("required_div");
     
     var txtBox=document.getElementById("first_name" );

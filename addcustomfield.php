@@ -184,7 +184,8 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 																$viewall .= "<tr style='background-color:#FBFBFB; font-weight:normal; padding:1%;'><td align=";
 
 																if ($A_name_position=='TOP') {
-																	$viewall .= "left colspan=2";
+																	//$viewall .= "left colspan=2";
+																	$viewall .= "left";
 																} else {
 																	$viewall .= "right";
 																}
@@ -218,8 +219,8 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 
 															if ( ($A_field_type=='SELECT') or ($A_field_type=='MULTI') or ($A_field_type=='RADIO') or ($A_field_type=='CHECKBOX') )
 															{
-																$A_field_options = str_replace('\r\n', '\n', $A_field_options);
-																$field_options_array = explode('\n', $A_field_options);
+																$A_field_options = str_replace("\r\n", "\n", $A_field_options);
+																$field_options_array = explode("\n", $A_field_options);
 
 																$field_options_count = count($field_options_array);
 																$te=0;
@@ -280,17 +281,17 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 															}
 															if ($A_field_type=='DISPLAY')
 															{
-																if ($A_field_default=='NULL')
+																if ($A_field_options=='NULL')
 																{
-																	$A_field_default='';
+																	$A_field_options='';
 																}
-																$field_HTML .= "$A_field_default\n";
+																$field_HTML .= "$A_field_options\n";
 															}
 															if ($A_field_type=='SCRIPT')
 															{
-																if ($A_field_default=='NULL')
+																if ($A_field_options=='NULL')
 																{
-																	$A_field_default='';
+																	$A_field_options='';
 																}
 																$field_HTML .= "$A_field_options\n";
 															}
@@ -453,11 +454,11 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 									<div class="form-group">
 										<label class="control-label col-lg-3">Rank:</label>
 										<div class="col-lg-3">
-											<input type="text" class="form-control field-rank" name="field_rank" value="">
+											<input type="number" class="form-control field-rank" name="field_rank" value="">
 										</div>
 										<label class="control-label col-lg-2">Order:</label>
 										<div class="col-lg-3">
-											<input type="text" class="form-control field-order" name="field_order" value="">
+											<input type="number" class="form-control field-order" name="field_order" value="">
 										</div>
 									</div>
 									<div class="form-group">
@@ -519,13 +520,13 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 									<div class="form-group">
 										<label class="control-label col-lg-3">Field Size:</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control field-size" name="field_size" value="">
+											<input type="number" class="form-control field-size" name="field_size" value="">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-lg-3">Field Max:</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control field-max" name="field_max" value="">
+											<input type="number" class="form-control field-max" name="field_max" value="">
 										</div>
 									</div>
 									<div class="form-group">
@@ -660,8 +661,14 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 					console.log(data);
 					var viewHTML = '<table class="table"';
 							viewHTML += '<tr>';
-							viewHTML += '<td><B>' + data.field_name + '</B></td>';
-							viewHTML += '<td>';
+							
+							//if(data.field_type != "DISPLAY" && data.field_type != "SCRIPT") {
+								viewHTML += '<td><B>' + data.field_name + '</B></td>';
+							
+								viewHTML += '<td>';
+							//} else {
+							//	viewHTML += '<td colspan="2">';
+							//}
 
 							if(data.field_type == "SELECT") {
 								viewHTML += '<select size=1 name="'+ data.field_label +'" id="'+data.field_label+'">';
@@ -714,27 +721,22 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 							}
 
 							if (data.field_type == "TEXT"){
-								if (data.field_default == 'NULL'){
-									var default_value = '';
-								}else{
-									var default_value = data.field_default;
+								var default_value = '';
+								if (data.field_default != 'NULL'){
+									default_value = data.field_default;
 								}
 								viewHTML += '<input type="text" size="'+ data.field_size +'" maxlength="'+ data.field_max +'" name="'+ data.field_label +'" id="'+ data.field_label +'" value="'+ default_value +'">\n';
 							}
 
 							if (data.field_type == "AREA"){
-								viewHTML += '<textarea name="'+ data.field_label +'" id="'+ data.field_label +'" ROWS="'+ data.field_max +'" COLS="'+ data.field_size +'"></textarea>';
+								viewHTML += '<textarea name="'+ data.field_label +'" id="'+ data.field_label +'" ROWS="'+ data.field_size +'" maxlength="'+ data.field_max +'" style="min-width: 90%;"></textarea>';
 							}
 
 							if (data.field_type == "DISPLAY"){
-								viewHTML += '<b>'+ data.field_default +'</b>';
+								viewHTML += data.field_options + "\n";
 							}
 
 							if (data.field_type == "SCRIPT"){
-								if (data.field_default == 'NULL'){
-									var default_value = '';
-								}
-
 								viewHTML += data.field_options + "\n";
 							}
 
@@ -871,9 +873,13 @@ if ($perm->customfields_read === 'N' && $perm->customfields_update === 'N' && $p
 					$('.field-rank').val(data.field_rank);
 					$('.field-order').val(data.field_order);
 					$('.field-name').val(data.field_name);
-					$('.field-description').val(data.field_description);
+					if (data.field_description !== null) {
+						$('.field-description').val(data.field_description.split('\\r\\n').join('\r\n'));
+					}
 					$('.field-type').val(data.field_type).change();
-					$('.field-options').val(data.field_options.replace('\\r\\n', '\r\n'));
+					if (data.field_options !== null) {
+						$('.field-options').val(data.field_options.split('\\r\\n').join('\r\n'));
+					}
 					$('.field-size').val(data.field_size);
 					$('.field-max').val(data.field_max);
 					$('.field-default').val(data.field_default);

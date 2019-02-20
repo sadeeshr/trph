@@ -176,15 +176,25 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 			});
 			
 			$(function() {
+			//turn to inline mode
+			//$.fn.editable.defaults.mode = 'inline';    //buttons
+			$.fn.editable.defaults.disabled = true;
+			$.fn.editableform.buttons =
+				'<button type="submit" class="btn btn-primary btn-sm editable-submit" style="padding: 8px 10px;">'+
+					'<i class="fa fa-check"></i>'+
+				'</button>'+
+				'<button type="button" class="btn btn-default btn-sm editable-cancel" style="padding: 8px 10px;">'+
+					'<i class="fa fa-remove"></i>'+
+				'</button>';
+				
 				$("a[id='first_name'], a[id='middle_initial'], a[id='last_name']").on('hidden', function() {
 					var thisID = $(this).attr('id');
-					$('#'+thisID+'_label').addClass('hidden');
+					//$('#'+thisID+'_label').addClass('hidden');
 				});
 				
 				$("a[id='first_name'], a[id='middle_initial'], a[id='last_name']").on('shown', function() {
 					var thisID = $(this).attr('id');
 					var oldValue = $(this).editable('getValue', true);
-					//console.log(oldValue);
 					if ($(this).html() !== '&nbsp;') {
 						//$('div.editable-input input').val($(this).text());
 						//$(this).editable('setValue', oldValue, true);
@@ -192,7 +202,7 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 						//$('div.editable-input input').val('');
 						//$(this).editable('setValue', '', true);
 					}
-					$('#'+thisID+'_label').removeClass('hidden');
+					//$('#'+thisID+'_label').removeClass('hidden');
 				});
 				
 				$("a[id='first_name']").editable({
@@ -202,7 +212,10 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 					emptytext: '&nbsp;',
 					unsavedclass: null,
 					inputclass: 'text-color-black',
-					onblur: 'submit'
+					onblur: 'submit',
+					success: function(response, newValue) {
+						console.log(response, newValue);
+					}
 				});
 				$("a[id='middle_initial']").editable({
 					type: 'text',
@@ -226,16 +239,6 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 				
 				//$("#callback-list").DataTable({"bDestroy": true, "aoColumnDefs": [{ "bSortable": false, "aTargets": [ 5 ] }, { "bSearchable": false, "aTargets": [ 2, 5 ] }] });
 			});
-			
-			//turn to inline mode
-			$.fn.editable.defaults.mode = 'inline';    //buttons
-			$.fn.editableform.buttons =
-				'<button type="submit" class="btn btn-primary btn-sm editable-submit" style="padding: 8px 10px;">'+
-					'<i class="fa fa-check"></i>'+
-				'</button>'+
-				'<button type="button" class="btn btn-default btn-sm editable-cancel" style="padding: 8px 10px;">'+
-					'<i class="fa fa-remove"></i>'+
-				'</button>';
 		</script>
 		<style>
 			.nav-tabs > li > a{
@@ -395,6 +398,9 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 				max-height: 200px;
 				overflow-x: hidden;
 				overflow-y: auto;
+			}
+			.editableform .form-group {
+				padding: 0 !important;
 			}
 		</style>
     </head>
@@ -1720,14 +1726,25 @@ $user_info = $api->API_getUserInfo($_SESSION['user'], "userInfo");
 				
 				$("#edit-profile").click(function(){
 				    $('.input-disabled').prop('disabled', false);
+								$('#cust_full_name .editable').editable('enable');
 				    //$('.hide_div').show();
 				    $("input:required, select:required").addClass("required_div");
 				    $('#edit-profile').addClass('hidden');
+								
+								$('#cust_full_name .editable').each(function() {
+									var thisXvalue = $(this).html();
+									if (thisXvalue == '&nbsp;') {
+										$(this).css('text-decoration', 'underline');
+									} else {
+										$(this).css('text-decoration', 'none');
+									}
+								});
 				    
 				    var txtBox=document.getElementById("first_name" );
-					txtBox.focus();
+								txtBox.focus();
 				    //$("#submit_div").focus(function() { $(this).select(); } );
 				    //$('input[name="first_name"]').focus();
+								editProfileEnabled = true;
 				});
 
 				$("#submit_edit_form").click(function(){

@@ -25,11 +25,11 @@
 	$postfields["field_order"] 						= $_POST['field_order'];
 	$postfields["field_label"] 						= $_POST['field_label'];
 	$postfields["field_label_old"] 				= $_POST['field_label_old'];
-	$postfields["name_position"] 					= $_POST['field_position'];
+	$postfields["field_position"] 				= $_POST['field_position'];
 	$postfields["field_description"] 			= $_POST['field_description'];
 	$postfields["field_type"] 						= $_POST['field_type'];
 	$postfields["field_options"] 					= $_POST['field_options'];
-	$postfields["multi_position"] 				= $_POST['field_option_position'];
+	$postfields["field_option_position"] 	= $_POST['field_option_position'];
 	$postfields["field_size"] 						= $_POST['field_size'];
 	$postfields["field_max"] 							= $_POST['field_max'];
 	$postfields["field_default"] 					= $_POST['field_default'];
@@ -43,7 +43,7 @@
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_TIMEOUT, 100);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   $data = curl_exec($ch);
   curl_close($ch);

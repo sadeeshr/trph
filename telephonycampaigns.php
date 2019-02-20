@@ -214,9 +214,11 @@
 												 <th><?php $lh->translateText("campaign_name"); ?></th>
 												 <th><?php $lh->translateText("dial_method"); ?></th>
 												 <th><?php $lh->translateText("status"); ?></th>
+												 <th>
 												 <?php if ($perm->campaign->campaign_delete !== 'N'){ ?>
-												 <th><?php echo $checkbox_all;?></th>
-												 <?php } ?>													 
+												 <?php echo $checkbox_all;?>
+												 <?php } ?>				
+												 </th>
 												 <th class='action_disposition'><?php $lh->translateText("action"); ?></th>											 
 											  </tr>
 										   </thead>
@@ -255,9 +257,13 @@
 														<td><?php echo $campaign->campaign_name[$i];?></td>
 														<td><?php echo $dial_method;?></td>
 														<td><?php echo $campaign->active[$i];?></td>
-														<?php if ($perm->campaign->campaign_delete !== 'N'){ ?>
-														<td><?php echo $checkbox;?></td>
-														<?php } ?>															
+														<td>
+														<?php
+															if ($perm->campaign->campaign_delete !== 'N'){
+																echo $checkbox;
+															}
+														?>															
+														</td>
 														<td><?php echo $action_CAMPAIGN;?></td>													
 													</tr>
 												<?php
@@ -1711,7 +1717,7 @@
 				$('.lists-description').val(dataInfo.list_description);
 				$('.lists-campaign').val(dataInfo.campaign_id).trigger('change');
 				$('.lists-reset-time').val(dataInfo.reset_time);
-				$('.lists-lead-called-status').val(dataInfo.reset_called_lead_status).trigger('change');
+				//$('.lists-lead-called-status').val(dataInfo.reset_called_lead_status).trigger('change');
 				$('.lists-active').val(dataInfo.active).trigger('change');
 				$('.lists-agent-script-override').val(dataInfo.agent_script_override).trigger('change');
 				$('.lists-cid-override').val(dataInfo.campaign_cid_override);

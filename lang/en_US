@@ -944,6 +944,7 @@ csv_file = "CSV File"
 no_duplicate_check = "NO DUPLICATE CHECK"
 check_phones_in_list_id = "CHECK PHONES IN LIST ID"
 check_phones_in_campaign-lists = "CHECK PHONES IN CAMPAIGN-LISTS"
+delete_multiple_list = "Delete Multiple List"
 
 list_wizard = "List izard"
 add_list = "Add New List"
@@ -1457,3 +1458,14 @@ campaign_google_sheet_ids_successfully_updated = "Campaign Google Sheet IDs Succ
 you_have_not_entered_an_id = "You have not entered an ID"
 you_have_entered_an_invalid_id = "You have entered an invalid ID"
 slave_db_ip = "Slave DB IP"
+
+park_call = "Park Call"
+grab_park_call = "Grab Park Call"
+transfer_call = "Transfer Call"
+ivr_park_call = "IVR Park Call"
+grab_ivr_park_call = "Grab IVR Park Call"
+requeue_call = "Re-Queue Call"
+
+enter_first_name = "Enter First Name"
+enter_middle_initial = "Enter Middle Initial"
+enter_last_name = "Enter Last Name"
